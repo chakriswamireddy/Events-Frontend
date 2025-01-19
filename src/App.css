@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap');
+
+body {
+    background-color: #F4F6FF;
+     /* #FEF9F2; */
+
+}
+
+#auth-page {
+    height: 100vh;
+    background: url('./assets/event1.jpg');
+    background-clip: border-box;
+    background-size: cover;
+    background-repeat: repeat-x;
+}
+
+#appTitle {
+    /* background: rgb(186,54,27); */
+    background: linear-gradient(90deg, rgba(186,54,27,1) 24%, rgba(63,146,223,1) 100%);
+    background-clip: text;
+    color: transparent;
+    font-size: 45px;
+    /* text-shadow: 1px 1px 10px gray; */
+   
+    
+    font-family: "Oleo Script", serif;
+  font-weight: 700;
+  /* font-style: normal; */
+
+}
+
+#appTitle ~ div {
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: "Oleo Script", serif;
+    font-weight: 200;
+    background: linear-gradient(90deg, rgba(186,54,27,1) 24%, rgba(63,146,223,1) 100%);
+    background-clip: text;
+    color: transparent;
+}
