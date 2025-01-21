@@ -16,9 +16,9 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Navigate to='/authorize' />} />
-
-      <Route path='/authorize' element={<AuthorizeUser /> } />
       
+      <Route path='/authorize' element={<AuthorizeUser /> } />
+
       <Route path='/home' element= {<Homepage />} />
 
     </Routes>
