@@ -31,7 +31,8 @@ export function CreateEventForm({ tokenObj, eventEdit }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dialogOpen,setDialogOpen] = useState(false)
 
-  const handleCreateEvent = () => {
+  const handleCreateEvent = (e) => {
+     e.preventDefault();
     axios.post(`${baseBackedURl}/api/event`, {
       event_name: eventName, description, location, manager_mail: tokenObj.email, manager_name: tokenObj.username, participants,
       dateTime
