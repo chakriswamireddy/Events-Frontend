@@ -74,7 +74,7 @@ function Homepage() {
   }, [jwtToken])
 
 
-  const getAPIData = () =>{
+  const getAPIData = () => {
     tokenObj && axios.get(`${baseBackedURl}/api/event/all`, {
       params: { email: tokenObj.email },
     })
@@ -116,7 +116,7 @@ function Homepage() {
     })
       .then(res => {
         console.log(res.data);
-        getAPIData();       
+        getAPIData();
       })
       .catch(err => console.log(err))
   }
@@ -128,7 +128,8 @@ function Homepage() {
 
   const checkDateInRange = (dateTime) => {
     // console.log(dateTime)
-    return ( filterByDate.from && filterByDate.to) || filterByDate.from <= new Date(dateTime) && new Date(dateTime) <= filterByDate.to;
+    return filterByDate.from && filterByDate.to ? filterByDate.from <= new Date(dateTime) && new Date(dateTime) <= filterByDate.to
+      : true;
   }
 
   // useEffect(()=> {
@@ -254,73 +255,73 @@ function Homepage() {
         <div className=' w-full md:w-2/5 md:min-w-96 '>
           <h5 className='font-semibold pl-4 underline mb-2'> Participated Events </h5>
           <Accordion type="single" collapsible>
-          {/* {allEvents?.participatedEvents?.length} */}
- 
+            {/* {allEvents?.participatedEvents?.length} */}
+
 
             {
               [...new Set(
                 allEvents?.participatedEvents?.filter((event) => event.event_name.includes(filterByName) && checkDateInRange(event.dateTime))
-           
+
               )]
-            // allEvents?.participatedEvents?.filter((event) => event.event_name.includes(filterByName) && checkDateInRange(event.dateTime))
-            
-            ?.map((event) => (
+                // allEvents?.participatedEvents?.filter((event) => event.event_name.includes(filterByName) && checkDateInRange(event.dateTime))
 
-              <AccordionItem value={event.eventId} key={event.eventId}>
-                <Card className='mb-1 '>
-                  <AccordionTrigger className='p-0'>
+                ?.map((event) => (
 
-
-                    <CardHeader className='w-full' >
-                      <div className='flex w-full items-center justify-between ' >
+                  <AccordionItem value={event.eventId} key={event.eventId}>
+                    <Card className='mb-1 '>
+                      <AccordionTrigger className='p-0'>
 
 
-                        <div className=' w-max' >
-
-                          <CardTitle className=' text-left w-max underline-offset-0 flex' > {event.event_name}
-
-                            {new Date(event.dateTime) < new Date(Date.now()) &&
-
-                              <Badge className='ml-2' variant="secondary">Over</Badge>
-                            }
-                          </CardTitle>
-                          <CardDescription className='flex gap-1 content-end  w-max mt-1'> {event.location}  <Users style={{ marginTop: '3px', marginLeft: '10px' }} size={15} />  {event.participants.length}
-                            <span className='ml-2 flex gap-1 align-center justify-center underline-offset-0'>
-                              <Calendar className='mt-1' size={15} /> {new Date(event.dateTime).toLocaleString()}
-                            </span>
-                          </CardDescription>
-                        </div>
-                        <div className='flex items-center w-max '>
-
-                          {
-                            new Date(event.dateTime).getTime() - new Date(Date.now()) > 24 * 60 * 60 * 1000
-                              ?
-
-                              <Dialog className=''>
-                                <DialogTrigger className=''>
-                                  <LogOut size={18} />
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>Are you absolutely sure to Opt out?</DialogTitle>
-                                    <DialogDescription className='flex justify-end gap-2'>
-
-                                      <DialogTrigger>
-
-                                        <Button variant='outline' className='border-2' > No </Button>
-                                        <Button variant="destructive" onClick={() => { handleOptOutEvent(event.eventId) }} color='red'>  Yes</Button>
-                                      </DialogTrigger>
-
-                                    </DialogDescription>
-                                  </DialogHeader>
-                                </DialogContent>
-                              </Dialog>
-
-                              : <></>
-                          }
+                        <CardHeader className='w-full' >
+                          <div className='flex w-full items-center justify-between ' >
 
 
-                          {/* 
+                            <div className=' w-max' >
+
+                              <CardTitle className=' text-left w-max underline-offset-0 flex' > {event.event_name}
+
+                                {new Date(event.dateTime) < new Date(Date.now()) &&
+
+                                  <Badge className='ml-2' variant="secondary">Over</Badge>
+                                }
+                              </CardTitle>
+                              <CardDescription className='flex gap-1 content-end  w-max mt-1'> {event.location}  <Users style={{ marginTop: '3px', marginLeft: '10px' }} size={15} />  {event.participants.length}
+                                <span className='ml-2 flex gap-1 align-center justify-center underline-offset-0'>
+                                  <Calendar className='mt-1' size={15} /> {new Date(event.dateTime).toLocaleString()}
+                                </span>
+                              </CardDescription>
+                            </div>
+                            <div className='flex items-center w-max '>
+
+                              {
+                                new Date(event.dateTime).getTime() - new Date(Date.now()) > 24 * 60 * 60 * 1000
+                                  ?
+
+                                  <Dialog className=''>
+                                    <DialogTrigger className=''>
+                                      <LogOut size={18} />
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                      <DialogHeader>
+                                        <DialogTitle>Are you absolutely sure to Opt out?</DialogTitle>
+                                        <DialogDescription className='flex justify-end gap-2'>
+
+                                          <DialogTrigger>
+
+                                            <Button variant='outline' className='border-2' > No </Button>
+                                            <Button variant="destructive" onClick={() => { handleOptOutEvent(event.eventId) }} color='red'>  Yes</Button>
+                                          </DialogTrigger>
+
+                                        </DialogDescription>
+                                      </DialogHeader>
+                                    </DialogContent>
+                                  </Dialog>
+
+                                  : <></>
+                              }
+
+
+                              {/* 
                           {event.manager_mail === tokenObj.email &&
 
 
@@ -340,30 +341,30 @@ function Homepage() {
                             </Dialog>
 
                           } */}
-                        </div>
-                      </div>
-                    </CardHeader>
-                  </AccordionTrigger>
-                  {/* <h1>test</h1> */}
-                  <AccordionContent className='p-0' >
+                            </div>
+                          </div>
+                        </CardHeader>
+                      </AccordionTrigger>
+                      {/* <h1>test</h1> */}
+                      <AccordionContent className='p-0' >
 
-                    <CardContent>
-                      <div className='flex gap-4'>
-                        <ScrollText color='gray' />
-                        <p>   {event.description} </p>
-                      </div>
-                      <p> Organiser: {event.manager_mail} </p>
-                      <p> {event.participants.join(', ')}  </p>
+                        <CardContent>
+                          <div className='flex gap-4'>
+                            <ScrollText color='gray' />
+                            <p>   {event.description} </p>
+                          </div>
+                          <p> Organiser: {event.manager_mail} </p>
+                          <p> {event.participants.join(', ')}  </p>
 
-                    </CardContent>
-                  </AccordionContent>
-                  {/* <CardFooter>
+                        </CardContent>
+                      </AccordionContent>
+                      {/* <CardFooter>
                       <p>Card Footer</p>
                     </CardFooter> */}
-                </Card>
-              </AccordionItem>
+                    </Card>
+                  </AccordionItem>
 
-            ))}
+                ))}
           </Accordion>
 
           {allEvents?.participatedEvents?.length == 0 &&
