@@ -6,6 +6,8 @@ import React from 'react'
 
 function NovuInbox({ tokenObj }) {
 
+  console.log("Novu Inbox Token Obj:", tokenObj?.id);
+
   return (
     <>
 

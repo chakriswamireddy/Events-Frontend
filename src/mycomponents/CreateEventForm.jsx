@@ -16,7 +16,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { DiamondPlus, Edit } from "lucide-react"
 
-export function CreateEventForm({ tokenObj, eventEdit }) {
+export function CreateEventForm({ tokenObj, eventEdit,getAPIData }) {
 
   const [eventName, setEventName] = useState('');
   const [description, setDescription] = useState('')
@@ -37,8 +37,7 @@ export function CreateEventForm({ tokenObj, eventEdit }) {
       event_name: eventName, description, location, manager_mail: tokenObj.email, manager_name: tokenObj.username, participants,
       dateTime
     })
-      .then(res => console.log(res.data))
-      // .then((res) => console.log(res.data))
+      .then(res => {console.log(res.data); setDialogOpen(false) ; getAPIData(); })
       .catch(err => console.log(err))
   }
 
@@ -66,7 +65,8 @@ export function CreateEventForm({ tokenObj, eventEdit }) {
         console.log(res.data)
         setIsSubmitting(false);
         setApiResponse(res.status);
-        setDialogOpen(false)
+        setDialogOpen(false);
+        getAPIData();
       })
       // .then((res) => console.log(res.data))
       .catch(err => console.log(err))
@@ -77,7 +77,7 @@ export function CreateEventForm({ tokenObj, eventEdit }) {
   }
 
   return (
-    <Dialog  open={dialogOpen }>
+    <Dialog  open={dialogOpen } onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={()=> setDialogOpen(true)} className={`${eventEdit ? 'p-0' :'' } `} >
           {eventEdit ? <Edit /> : 
@@ -127,7 +127,7 @@ export function CreateEventForm({ tokenObj, eventEdit }) {
 
 
           <DialogFooter>
-            <Button type="submit" className='mt-8' > {isSubmitting? 'Saving..' : 'Save Event'} </Button>
+            <Button  type="submit" className='mt-8' > {isSubmitting? 'Saving..' : 'Save Event'} </Button>
             {apiResponse &&
             <Label> {apiResponse==='ok' ? 'Successfully Saved' : 'Failed to save' } </Label>
             }

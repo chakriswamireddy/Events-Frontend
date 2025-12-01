@@ -78,7 +78,7 @@ function Homepage() {
     tokenObj && axios.get(`${baseBackedURl}/api/event/all`, {
       params: { email: tokenObj.email },
     })
-      .then(res => { setAllEvents(res.data) })
+      .then(res => { setAllEvents(res.data); console.log(res.data) })
       .catch(err => {
         console.log(err)
       });
@@ -136,11 +136,13 @@ function Homepage() {
   //   console.log(allEvents?.participatedEvents)
   // },[allEvents])
 
+  //trigger api call when child component creates/edits an event
+
   return (
     <div>
       <Navbar imgUrl={tokenObj.profileImg} tokenObj={tokenObj} />
       <div className='flex justify-end w-full pr-3 '>
-        <CreateEventForm tokenObj={tokenObj} />
+        <CreateEventForm getAPIData={getAPIData} tokenObj={tokenObj} />
 
       </div>
 
@@ -156,7 +158,6 @@ function Homepage() {
           <Accordion type="single" collapsible>
             {/* {allEvents?.organisedEvents?.map((event) => ( */}
             {allEvents?.organisedEvents?.filter((event) => event.event_name.includes(filterByName) && checkDateInRange(event.dateTime))?.map((event) => (
-
 
               <AccordionItem value={event.eventId} key={event.eventId}>
                 <Card className='mb-1 '>

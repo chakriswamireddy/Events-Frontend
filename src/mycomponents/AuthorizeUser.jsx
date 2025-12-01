@@ -88,8 +88,8 @@ function AuthorizeUser() {
 
     }
 
-    const loginUser = (event) => {
-        event.preventDefault();
+    const loginUser = (e) => {
+        e.preventDefault();
         setIsLoading(true);
 
         axios.post(`${baseBackedURl}/api/auth/login`, { email, password })
