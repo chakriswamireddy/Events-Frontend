@@ -88,11 +88,13 @@ function AuthorizeUser() {
 
     }
 
-    const loginUser = (e) => {
-        e.preventDefault();
+    const loginUser = (e, isTestLogin) => {
+        e && e.preventDefault();
         setIsLoading(true);
 
-        axios.post(`${baseBackedURl}/api/auth/login`, { email, password })
+        const body = isTestLogin ? { email: 'ZoeyPace@gmail.com', password: '1234' } : { email, password };
+
+        axios.post(`${baseBackedURl}/api/auth/login`, body)
             .then(response => {
                 // console.log(response.data.token)
 
@@ -118,9 +120,7 @@ function AuthorizeUser() {
     }
 
     const handleGuestLogin =() => {
-        setPassword('1234');
-        setEmail('fornot@gmail.com');
-        loginUser();
+        loginUser(null,true);
     }
 
 
